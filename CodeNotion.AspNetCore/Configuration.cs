@@ -19,12 +19,13 @@ public record SwaggerConfig
 
 	public Uri? TokenUrl { get; set; }
 	public string[] IgnoredParameterNames { get; set; } = Array.Empty<string>();
+	public Action<SwaggerGenOptions>? ConfigureSwaggerGenOptions { get; set; } = _ => { };
 }
 
 public static class SwaggerConfiguration
 {
 	internal static SwaggerConfig? InternalConfig;
-	
+
 	public static IServiceCollection AddSwagger(this IServiceCollection source, Action<SwaggerConfig> action)
 	{
 		var config = new SwaggerConfig();
@@ -67,6 +68,7 @@ public static class SwaggerConfiguration
 			options.SchemaFilter<XEnumNamesSchemaFilter>();
 			options.AddSecurityDefinition(config.SecurityScheme, scheme);
 			options.CustomOperationIds(description => description.TryGetMethodInfo(out MethodInfo methodInfo) ? $"{methodInfo.DeclaringType!.Name.Replace("Controller", string.Empty)}_{methodInfo.Name}" : null);
+			config.ConfigureSwaggerGenOptions?.Invoke(options);
 		});
 	}
 
@@ -101,7 +103,7 @@ public static class SwaggerConfiguration
 		{
 			throw new InvalidOperationException($"Attempting to set up Swagger Generation without correct service registration. Please register required services by calling services.{nameof(AddSwagger)}()");
 		}
-		
+
 		source.UseSwagger(new Action<SwaggerOptions>(_ => { }));
 		source.UseSwaggerUI(c =>
 		{
