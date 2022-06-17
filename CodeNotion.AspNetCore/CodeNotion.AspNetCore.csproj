@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <VersionPrefix>1.0.0</VersionPrefix>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        
+        <Title>CodeNotion.AspNetCore</Title>
+        <Authors>CodeNotion Limited</Authors>
+        <Description>Library to include standard AspNet Core Configurations for Swagger and Nswag api Generation</Description>
+        <PackageProjectUrl>https://github.com/CodeNotion-Limited/CodeNotion.AspNetCore</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/CodeNotion-Limited/CodeNotion.AspNetCore</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/CodeNotion-Limited/CodeNotion.AspNetCore</RepositoryUrl>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>        
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+        <PackageReference Include="NSwag.AspNetCore" Version="13.15.10" />
+    </ItemGroup>
+</Project>
